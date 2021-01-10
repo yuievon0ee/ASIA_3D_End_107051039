@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using System.Collections;
 
 public class NPCTWO : MonoBehaviour
 {
@@ -9,15 +10,25 @@ public class NPCTWO : MonoBehaviour
     public GameObject dialog;
     [Header("內容")]
     public Text textContent;
+    [Header("對話間隔")]
+    public float interval = 0.2f;
 
     public bool playerInArea;
+
+    
+    public enum NPCState
+    {
+        FirstDialog,Missioning,Finish
+    }
+    [Header("NPC狀態")]
+    public NPCState state = NPCState.FirstDialog;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.name== "ThirdPerson")
         {
             playerInArea = true;
-            Dialog();
+            StartCoroutine(Dialog());
         }
     }
 
@@ -26,14 +37,40 @@ public class NPCTWO : MonoBehaviour
         if(other.name== "ThirdPerson")
         {
             playerInArea = false;
+            StopDialog();
         }
     }
 
-    private void Dialog()
+    private void StopDialog()
     {
-        for(int i=0;i<data.dialougA.Length;i++)
+        dialog.SetActive(false);
+        StopAllCoroutines();
+    }
+
+    private IEnumerator Dialog()
+    {
+        dialog.SetActive(true);
+        textContent.text = "";
+        string dialogString = data.dialougB;
+
+        switch(state)
         {
-            print(data.dialougA[i]);
+            case NPCState.FirstDialog:
+                dialogString = data.dialougA;
+                break;
+            case NPCState.Missioning:
+                dialogString = data.dialougB;
+                break;
+            case NPCState.Finish:
+                dialogString = data.dialougC;
+                break;
+
+        }
+
+        for(int i=0;i<dialogString.Length;i++)
+        {
+            textContent.text += dialogString[i] + "";
+            yield return new WaitForSeconds(interval);
         }
     }
 }

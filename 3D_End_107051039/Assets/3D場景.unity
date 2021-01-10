@@ -829,7 +829,9 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 1a554d69c61c15449bfdec6e63c11eef, type: 2}
   dialog: {fileID: 109706230}
   textContent: {fileID: 1696913867}
+  interval: 0.1
   playerInArea: 0
+  state: 0
 --- !u!54 &175497684
 Rigidbody:
   m_ObjectHideFlags: 0
