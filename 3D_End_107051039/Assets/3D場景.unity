@@ -5752,7 +5752,7 @@ MonoBehaviour:
   interval: 1
   atkPoint: {fileID: 1948589857}
   atkLength: 1.94
-  atk: 30
+  atk: 110
 --- !u!4 &1534545572 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4425428723088313501, guid: fc9b148a2950aaf4cba8422632222c5d,
